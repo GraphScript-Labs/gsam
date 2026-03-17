@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gsam"
+version = "0.9.0"
+description = "Compiler toolchain for the GSAM language."
+readme = "README.md"
+requires-python = ">=3.14"
+authors = [
+  { name = "AttAditya" }
+]
+license = { file = "LICENSE" }
+keywords = ["compiler", "language", "gsam", "graphscript"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Operating System :: OS Independent",
+  "Environment :: Console",
+  "Topic :: Software Development :: Compilers"
+]
+
+[project.urls]
+Homepage = "https://github.com/graphscript-labs/compiler"
+Repository = "https://github.com/graphscript-labs/compiler"
+
+[project.scripts]
+gsam = "gsam.__main__:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["gsam*"]

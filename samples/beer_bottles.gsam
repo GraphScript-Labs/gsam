@@ -1,0 +1,30 @@
+* print bottle
+  + bottle count
+  - print
+    - concat
+      + bottle count
+      + text
+        ! bottles of beer on the wall,
+      + endline
+
+* throw bottle
+  + bottle count
+  - if
+    + not equals
+      + bottle count
+      + number
+        ! 0
+    - print bottle
+      + bottle count
+    - throw bottle
+      + subtract
+        + bottle count
+        + number
+          ! 1
+
+* main
+  - throw bottle
+    + number
+      ! 99
+
+- main

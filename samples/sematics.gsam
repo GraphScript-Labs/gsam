@@ -1,0 +1,65 @@
+? this is an example of a comment
+  this is the second line of the comment
+  as long as the line starts with indentation
+  the line is the part of the comment
+
+? following is the semantics of:
+  - call a function
+  - save the result in a variable
+  - give the function keyword arguments
+  - give the function positional arguments
+  - give the function options to jump to next function node
+
+- parent node
+  = save variable
+  @ keyword1 argument
+    + value of keyword argument 1
+  @ keyword2 argument
+    + value of keyword argument 2
+  + function call
+    + function argument 1
+  + argument 1
+  + argument 2
+  > possible next node 1
+  > possible next node 2
+
+? following is the semantics of:
+  - chain execution of multiple nodes if first possible node
+
+- parent node
+  + argument 1
+  - execute node 1
+    + argument 1
+  - execute node 2
+    + argument 1
+
+? following is the semantics of:
+  - creating a custom function node
+  - declaring the keyword arguments of the function node
+  - declaring the positional arguments of the function node
+  - creating the execution logic of the function node
+  - setting the return value of the function node
+  - selecting the next node to execute
+
+* custom node
+  @ custom name 1
+  @ custom name 2
+  @ custom name 3
+  + argument variable 1
+  + argument variable 2
+  - execute node
+    + argument 1
+    + argument 2
+  - execute node
+  - execute node
+  = set return value
+  : select return node
+
+? following is the semantics of:
+  - declaring a literal type
+  - assigning a value to that variable
+
+- literal type
+  = variable name
+  ! value
+
