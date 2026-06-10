@@ -20,8 +20,6 @@
     + function argument 1
   + argument 1
   + argument 2
-  > possible next node 1
-  > possible next node 2
 
 ? following is the semantics of:
   - chain execution of multiple nodes if first possible node
@@ -52,14 +50,50 @@
     + argument 2
   - execute node
   - execute node
-  = set return value
-  : select return node
+  = set return node (value)
+  : set return path (number)
 
 ? following is the semantics of:
-  - declaring a literal type
+  - declaring a literal type that is text
+  - assigning a value to that variable
+
+! text value
+  = variable name
+
+? following is the semantics of:
+  - declaring a literal type that is not text
   - assigning a value to that variable
 
 - literal type
   = variable name
   ! value
+
+? following is the semantics of:
+  - importing a material
+  - materials are node overloads for:
+    - performing actions
+    - connecting to external systems
+    - providing utility functions
+    - be like a library / imports
+
+$ material imports
+
+$ material imports with prefixes and suffixes
+  @ prefix
+    + text
+      ! material
+  @ suffix
+    + text
+      ! imports
+
+? following is the semantics of:
+  - control flow powered by node definitions
+  - special function sets value of return node
+  - return node is an integer
+  - it works normally, plus ability to decide the next node
+
+- special function
+  > path 1
+  > path 2
+  > path 3
 

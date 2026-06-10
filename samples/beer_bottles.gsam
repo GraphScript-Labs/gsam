@@ -1,26 +1,29 @@
+$ types
+$ console
+  @ suffix
+    + text
+      ! " in console"
+
 * print bottle
   + bottle count
-  - print
-    - concat
-      + bottle count
-      + text
-        ! bottles of beer on the wall,
-      + endline
+  - log line in console
+    + text
+      ! "/bottle count/ bottles of beer on the wall,"
 
 * throw bottle
   + bottle count
-  - if
-    + not equals
-      + bottle count
-      + number
-        ! 0
-    - print bottle
-      + bottle count
-    - throw bottle
-      + subtract
+  # bottle count
+    + number
+      ! 1
+    > do nothing
+    > perform
+      - print bottle
         + bottle count
-        + number
-          ! 1
+      - throw bottle
+        + subtract
+          + bottle count
+          + number
+            ! 1
 
 * main
   - throw bottle
@@ -28,3 +31,4 @@
       ! 99
 
 - main
+
