@@ -18,56 +18,83 @@ class RuntimeNode(Node):
     self.source: Node | None = source
     self.execution_state: str = "pending"
     self.arg_name: str | None = arg_name
-    self.arg_vals: dict[str, Node] = {}
-    self.return_node: Node | None = None
-    self.return_path: int = 0
 
+  @autosig
+  def run_group(
+    self,
+    stream: NodeStream,
+    syntax: SyntaxNode,
+    identifiers: list[str],
+  ):
+    for identifier in identifiers[::-1]:
+      nodes = syntax.attached.get(identifier, [])
+
+      for node in nodes:
+        runtime_node = RuntimeNode(node, self)
+        stream.push(runtime_node)
+
+  @autosig
   def save_node(self, memory: Memory):
     memory.upsert(self.syntax.content, self.syntax)
 
-  def evaluate_args(self, node: Node, queue: NodeStream):
-    self.execution_state = "executing"
+  @autosig
+  def evaluate_args(self, node: SyntaxNode, stream: NodeStream):
+    self.execution_state = "preparing"
     syntax = self.syntax
-    queue.push_start(self)
-    arg_names = syntax.attached.get("+", [])
-    passed_args = node.attached.get("+", [])
+    stream.push(self)
+    arg_names = node.attached.get("+", [])
+    passed_args = syntax.attached.get("+", [])
     iteration_len = min(len(arg_names), len(passed_args))
     arg_idx = 0
 
     while arg_idx < iteration_len:
       passed_arg = passed_args[arg_idx]
-      arg_name = arg_names[arg_idx]
+      arg_name = arg_names[arg_idx].content
       runtime_node = RuntimeNode(passed_arg, self, arg_name)
-      queue.push_start(runtime_node)
+      stream.push(runtime_node)
       arg_idx += 1
 
     self.execution_state = "ready"
 
-  def execute_internal(self, node: Node, queue: NodeStream):
-    memory = queue.memory
+  @autosig
+  def execute_internal(self, node: SyntaxNode, stream: NodeStream):
+    memory = stream.memory
     self.execution_state = "executing"
-    queue.push_start(self)
+    stream.push(self)
     memory.create_scope()
-    internal_calls = node.attached.get("-", [])
-
-    for internal_call in internal_calls:
-      runtime_node = RuntimeNode(internal_call, self)
-      queue.push_start(runtime_node)
+    self.run_group(
+      stream, node, ["*", "-"],
+    )
 
     self.execution_state = "executed"
 
-  def cleanup(self, queue: NodeStream):
+  @autosig
+  def cleanup(self, node: SyntaxNode, stream: NodeStream):
+    memory = stream.memory
     self.execution_state = "cleaning"
-    queue.memory.poll_scope()
-    result_node = self.syntax.attached.get("=", [None])[0]
-    result_path = self.syntax.attached.get(":", [0])[0]
-    self.return_node = result_node
-    self.return_path = result_path
+    return_node = node.attached.get("=", [])
+    returned_node: SyntaxNode | None = None
+    save_names_nodes = self.syntax.attached.get("=", [])
+    save_names = [node.content for node in save_names_nodes]
+
+    for ret_node in return_node:
+      found, returned_node = memory.search(ret_node.content)
+
+      if found:
+        break
+
+    memory.poll_scope()
+
+    if returned_node is not None:
+      for save_name in save_names:
+        memory.upsert(save_name, returned_node)
+
     self.execution_state = "done"
 
-  def execute(self, queue: NodeStream):
+  @autosig
+  def execute(self, stream: NodeStream):
     syntax = self.syntax
-    memory = queue.memory
+    memory = stream.memory
     saved, node = memory.search(syntax.content)
     node: SyntaxNode = node
 
@@ -75,27 +102,40 @@ class RuntimeNode(Node):
       return
 
     if self.execution_state == "pending":
-      self.evaluate_args(node, queue)
+      self.evaluate_args(node, stream)
       return
 
     if self.execution_state == "ready":
-      self.execute_internal(node, queue)
+      self.execute_internal(node, stream)
       return
 
     if self.execution_state == "executed":
-      self.cleanup(queue)
+      self.cleanup(node, stream)
       return
 
   @autosig
-  def initiate(self, queue: NodeStream):
+  def initiate(self, stream: NodeStream):
     syntax = self.syntax
-    memory = queue.memory
+    memory = stream.memory
+
+    if syntax.identity == ">":
+      self.run_group(
+        stream,
+        syntax,
+        [
+          "+",
+          "@",
+          "*",
+          ">",
+          "-",
+        ],
+      )
 
     if syntax.identity == "*":
       self.save_node(memory)
       return
 
-    if syntax.identity == "-":
-      self.execute(queue)
+    if syntax.identity in "+-":
+      self.execute(stream)
       return
 

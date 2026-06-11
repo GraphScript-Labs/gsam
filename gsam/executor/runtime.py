@@ -14,12 +14,8 @@ class Runtime:
 
   @autosig
   def setup(self, root_node: SyntaxNode) -> str:
-    for identifier in "@*-":
-      nodes = root_node.attached.get(identifier, [])
-
-      for node in nodes:
-        runtime_node = RuntimeNode(node)
-        self.streams["sacred"].push_end(runtime_node)
+    runtime_node = RuntimeNode(root_node)
+    self.streams["sacred"].push(runtime_node)
 
     return "sacred"
 

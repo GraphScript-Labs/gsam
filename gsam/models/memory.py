@@ -1,13 +1,18 @@
-from gsam.interfaces.node import Node
 from gsam.models.state_store import StateStore
+from gsam.models.syntax_node import SyntaxNode
 
+from langex.core.classes import langex_class
+from langex.core.functions import autosig
+
+@langex_class
 class Memory:
   def __init__(self):
     self._storeStack: list[StateStore] = [
       StateStore()
     ]
 
-  def search(self, key: str) -> tuple[bool, Node | None]:
+  @autosig
+  def search(self, key: str) -> tuple[bool, SyntaxNode | None]:
     level = len(self._storeStack) - 1
 
     while level >= 0:
@@ -21,16 +26,27 @@ class Memory:
 
     return False, None
 
-  def upsert(self, key: str, node: Node):
+  @autosig
+  def upsert(self, key: str, node: SyntaxNode):
     self._storeStack[-1].upsert(key, node)
 
+  @autosig
   def create_scope(self):
     self._storeStack.append(StateStore())
 
+  @autosig
   def poll_scope(self):
     if len(self._storeStack) > 1:
       self._storeStack.pop()
 
   def __repr__(self):
     return f"Memory[*{len(self._storeStack)}]"
+
+  def __str__(self):
+    result = "Memory:\n"
+
+    for store in self._storeStack:
+      result += f"  {str(store).replace("\n", "\n    ")}\n"
+
+    return result
 

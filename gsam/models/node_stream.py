@@ -21,18 +21,7 @@ class NodeStream:
     return self._head is not None
 
   @autosig
-  def push_end(self, node: Node):
-    new_node = NodeStream.__DequeNode__(node)
-
-    if self._tail is None:
-      self._head = new_node
-      self._tail = new_node
-    else:
-      self._tail.next = new_node
-      self._tail = new_node
-
-  @autosig
-  def push_start(self, node: Node):
+  def push(self, node: Node):
     new_node = NodeStream.__DequeNode__(node)
 
     if self._head is None:

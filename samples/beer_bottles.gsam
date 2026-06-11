@@ -12,10 +12,14 @@ $ console
 
 * throw bottle
   + bottle count
-  # bottle count
-    + number
-      ! 1
-    > do nothing
+  * validation
+    - equals
+      + bottle count
+      + number
+        ! 0
+      = valid
+    : valid
+  - validation
     > perform
       - print bottle
         + bottle count
