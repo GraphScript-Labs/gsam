@@ -1,7 +1,7 @@
+from gsam.entities.memory import Memory
+from gsam.entities.node_stream import NodeStream
+from gsam.entities.syntax_node import SyntaxNode
 from gsam.interfaces.node import Node
-from gsam.models.memory import Memory
-from gsam.models.node_stream import NodeStream
-from gsam.models.syntax_node import SyntaxNode
 
 from langex.core.classes import extends
 from langex.core.functions import autosig
@@ -123,11 +123,7 @@ class RuntimeNode(Node):
         stream,
         syntax,
         [
-          "+",
-          "@",
-          "*",
-          ">",
-          "-",
+          "$", "*", ">", "-",
         ],
       )
 

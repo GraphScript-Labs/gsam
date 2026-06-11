@@ -1,5 +1,5 @@
+from gsam.entities.memory import Memory
 from gsam.interfaces.node import Node
-from gsam.models.memory import Memory
 
 from langex.core.classes import langex_class
 from langex.core.functions import autosig

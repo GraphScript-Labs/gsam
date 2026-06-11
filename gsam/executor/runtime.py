@@ -1,6 +1,6 @@
-from gsam.models.node_stream import NodeStream
-from gsam.models.runtime_node import RuntimeNode
-from gsam.models.syntax_node import SyntaxNode
+from gsam.entities.node_stream import NodeStream
+from gsam.entities.runtime_node import RuntimeNode
+from gsam.entities.syntax_node import SyntaxNode
 
 from langex.core.classes import singleton
 from langex.core.functions import autosig

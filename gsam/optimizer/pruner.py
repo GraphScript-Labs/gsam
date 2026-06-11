@@ -1,4 +1,4 @@
-from gsam.models.syntax_node import SyntaxNode
+from gsam.entities.syntax_node import SyntaxNode
 
 from langex.core.functions import autosig
 
