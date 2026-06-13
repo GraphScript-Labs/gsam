@@ -1,5 +1,5 @@
 from gsam.entities.state_store import StateStore
-from gsam.entities.syntax_node import SyntaxNode
+from gsam.entities.nodes.syntax_node import SyntaxNode
 
 from langex.core.classes import langex_class
 from langex.core.functions import autosig

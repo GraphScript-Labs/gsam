@@ -1,6 +1,6 @@
 from gsam.entities.memory import Memory
 from gsam.entities.node_stream import NodeStream
-from gsam.entities.syntax_node import SyntaxNode
+from gsam.entities.nodes.syntax_node import SyntaxNode
 from gsam.interfaces.node import Node
 
 from langex.core.classes import extends
