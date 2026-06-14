@@ -17,6 +17,9 @@ class SyntaxNode:
 
     self.attached[node.identity].append(node)
 
+  def execute_material(self, _syntax, _stream):
+    pass
+
   def __repr__(self, level=0):
     res = "  " * level
     res += "".join([

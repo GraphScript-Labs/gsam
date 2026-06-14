@@ -62,6 +62,7 @@ class RuntimeNode(Node):
     self.execution_state = "executing"
     stream.push(self)
     memory.create_scope()
+    self.syntax.execute_material(node, stream)
     self.run_group(
       stream, node, ["*", "-"],
     )
