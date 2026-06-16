@@ -2,6 +2,7 @@ from gsam.entities.memory import Memory
 from gsam.entities.node_stream import NodeStream
 from gsam.entities.nodes.syntax_node import SyntaxNode
 from gsam.interfaces.node import Node
+from gsam.portal.manager import PortalManager
 
 from langex.core.classes import extends
 from langex.core.functions import autosig
@@ -134,5 +135,9 @@ class RuntimeNode(Node):
 
     if syntax.identity in "+-":
       self.execute(stream)
+      return
+
+    if syntax.identity == "$":
+      PortalManager.connect(syntax, stream)
       return
 
