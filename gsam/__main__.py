@@ -6,7 +6,8 @@ def read(fpath: str) -> str:
 
 def main():
   engine_pipeline(read(
-    "samples/beer_bottles.gsam"
+    "samples/hello.gsam"
+    # "samples/beer_bottles.gsam"
     # "samples/semantics.gsam"
   ))
 

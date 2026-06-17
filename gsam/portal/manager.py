@@ -56,7 +56,7 @@ class PortalManager:
 
     for strategy in strategies:
       if config["TYPE"] == strategy.IDENTIFIER:
-        return strategy(material_dir)
+        return strategy(material_dir, config)
 
     return None
 

@@ -8,6 +8,10 @@ from langex.core.functions import abstracted, autosig
 class MaterialStrategy:
   IDENTIFIER: str = "BASE"
 
+  def __init__(self, material_dir: str, config: dict[str, str]):
+    self.material_dir = material_dir
+    self.config = config
+
   @abstracted
   @autosig
   def init(self, node: SyntaxNode, stream: NodeStream):
