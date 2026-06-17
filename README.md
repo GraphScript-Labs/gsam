@@ -17,7 +17,9 @@ GSAM is a compiler and execution engine built around a graph-based computation m
 
 Instead of traditional linear execution, GSAM represents programs as graphs of nodes, enabling flexible control flow, parallel execution patterns, and pluggable runtime behavior.
 
-## Syntax
+## Syntax Overview
+
+Refer to the [Semantics Example](./samples/semantics.gsam) for detailed syntax descriptions and usage.
 
 ```gsam
 ? comment block (multi-line via indentation)
@@ -30,14 +32,7 @@ Instead of traditional linear execution, GSAM represents programs as graphs of n
   + positional_argument
   > next node option
 
-? chained execution example
 
-- parent node
-  + input
-  - next node A
-    + value
-  - next node B
-    + value
 ```
 
 ## Example
@@ -45,22 +40,12 @@ Instead of traditional linear execution, GSAM represents programs as graphs of n
 ### Hello World
 
 ```gsam
-- print
+? use console material
+$ console
+
+? "log" node comes from "console"
+- log
   + "Hello, GSAM!"
-```
-
-### Recursive / Loop-like Execution
-
-```gsam
-* count
-  + curr
-  - print
-    + curr
-  - count
-    - add
-      + curr
-      + number
-        ! 1
 ```
 
 ## Architecture
@@ -99,7 +84,7 @@ Source code flows through:
 GSAM follows a minimal and explicit design approach:
 
 - Graph-native execution model
-- Extensible through external modules
+- Extensible through external modules called “Materials”
 - Minimal assumptions in the core engine
 - Clear separation between syntax, execution, and behavior
 
