@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gsam"
-version = "0.1.1"
+version = "0.1.2"
 description = "Compiler toolchain for the GSAM language."
 readme = "README.md"
 requires-python = ">=3.14"
@@ -22,8 +22,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/graphscript-labs/compiler"
-Repository = "https://github.com/graphscript-labs/compiler"
+Homepage = "https://github.com/graphscript-labs/gsam"
+Repository = "https://github.com/graphscript-labs/gsam"
 
 [project.scripts]
 gsam = "gsam.__main__:main"
