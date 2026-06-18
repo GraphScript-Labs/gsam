@@ -60,6 +60,9 @@ class PortalManager:
 
     return None
 
+  def set_material_dir(self, material_dir: str):
+    self.material_dir = material_dir
+
   def connect(self, node: SyntaxNode, stream: NodeStream):
     material_name = node.content
     material_strategy = self._get_strategy(material_name)
