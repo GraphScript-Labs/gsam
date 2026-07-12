@@ -6,26 +6,19 @@
 ? following is the semantics of:
   - call a function
   - save the result in a variable
-  - give the function keyword arguments
-  - give the function positional arguments
-  - give the function options to jump to next function node
+  - give the function arguments
 
 - parent node
   = save variable
-  @ keyword1 argument
-    + value of keyword argument 1
-  @ keyword2 argument
-    + value of keyword argument 2
   + function call
     + function argument 1
   + argument 1
   + argument 2
 
 ? following is the semantics of:
-  - chain execution of multiple nodes if first possible node
+  - chain execution of multiple nodes
 
-- parent node
-  + argument 1
+> parent label
   - execute node 1
     + argument 1
   - execute node 2
@@ -33,16 +26,11 @@
 
 ? following is the semantics of:
   - creating a custom function node
-  - declaring the keyword arguments of the function node
-  - declaring the positional arguments of the function node
-  - creating the execution logic of the function node
-  - setting the return value of the function node
-  - selecting the next node to execute
+  - declaring the arguments
+  - creating the execution logic
+  - setting the return value
 
 * custom node
-  @ custom name 1
-  @ custom name 2
-  @ custom name 3
   + argument variable 1
   + argument variable 2
   - execute node
@@ -51,49 +39,9 @@
   - execute node
   - execute node
   = set return node (value)
-  : set return path (number)
-
-? following is the semantics of:
-  - declaring a literal type that is text
-  - assigning a value to that variable
-
-! text value
-  = variable name
-
-? following is the semantics of:
-  - declaring a literal type that is not text
-  - assigning a value to that variable
-
-- literal type
-  = variable name
-  ! value
 
 ? following is the semantics of:
   - importing a material
-  - materials are node overloads for:
-    - performing actions
-    - connecting to external systems
-    - providing utility functions
-    - be like a library / imports
 
-$ material imports
-
-$ material imports with prefixes and suffixes
-  @ prefix
-    + text
-      ! material
-  @ suffix
-    + text
-      ! imports
-
-? following is the semantics of:
-  - control flow powered by node definitions
-  - special function sets value of return node
-  - return node is an integer
-  - it works normally, plus ability to decide the next node
-
-- special function
-  > path 1
-  > path 2
-  > path 3
+$ material name
 
