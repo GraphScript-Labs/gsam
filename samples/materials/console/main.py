@@ -36,12 +36,24 @@ def kw_parse(syntax: INode) -> dict[str, list[INode]]:
 class PrintNode(ImplSyntaxNode):
   def execute_material(self, syntax: INode, stream: INodeStream):
     print_content = sum(syntax.attached.values(), start=[])
+    parsed = kw_parse(syntax)
 
     for node in print_content:
       if node.identity in ["!", "+"]:
         print(node.content, end="")
 
-    print()
+    line_end = "\n".join(list(map(
+      lambda n: n.content[1:-1],
+      parsed.get("end", [
+        ImplSyntaxNode("+", "+ '\n'"),
+      ]),
+    )))
+
+    print(line_end, end="")
+
+_definitions = {
+  "log": PrintNode,
+}
 
 def load(node: INode, stream: INodeStream):
   memory = stream.memory
@@ -53,5 +65,10 @@ def load(node: INode, stream: INodeStream):
   def fix_name(name):
     return f"{prefix}{name}{suffix}"
 
-  memory.upsert(fix_name("log"), PrintNode("*", "log"))
+  for def_name in _definitions:
+    fixed_name = fix_name(def_name)
+    memory.upsert(
+      fixed_name,
+      _definitions[def_name]("*", fixed_name),
+    )
 
