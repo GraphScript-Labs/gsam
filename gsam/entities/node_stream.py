@@ -1,5 +1,6 @@
 from gsam.entities.memory import Memory
 from gsam.interfaces.node import Node
+from gsam.interfaces.runtime_interface import RuntimeInterface
 
 from langex.core.classes import langex_class
 from langex.core.functions import autosig
@@ -11,11 +12,11 @@ class NodeStream:
       self.node: Node = node
       self.next: NodeStream.__StackNode__ | None = None
 
-  def __init__(self, name: str, runtime):
+  def __init__(self, name: str, runtime: RuntimeInterface):
     self.name: str = name
     self.memory: Memory = Memory()
     self._head: NodeStream.__StackNode__ | None = None
-    self.runtime = runtime
+    self.runtime: RuntimeInterface = runtime
 
   @autosig
   def has_nodes(self) -> bool:

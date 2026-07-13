@@ -3,12 +3,14 @@ from threading import Thread
 from gsam.entities.node_stream import NodeStream
 from gsam.entities.nodes.runtime_node import RuntimeNode
 from gsam.entities.nodes.syntax_node import SyntaxNode
+from gsam.interfaces.runtime_interface import RuntimeInterface
 
-from langex.core.classes import singleton
+from langex.core.classes import extends, singleton
 from langex.core.functions import autosig
 
 @singleton
-class Runtime:
+@extends
+class Runtime(RuntimeInterface):
   def __init__(self):
     self.streams: dict[str, NodeStream] = {}
 
