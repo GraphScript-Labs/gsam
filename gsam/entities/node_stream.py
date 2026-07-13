@@ -11,10 +11,11 @@ class NodeStream:
       self.node: Node = node
       self.next: NodeStream.__StackNode__ | None = None
 
-  def __init__(self, name: str):
+  def __init__(self, name: str, runtime):
     self.name: str = name
     self.memory: Memory = Memory()
     self._head: NodeStream.__StackNode__ | None = None
+    self.runtime = runtime
 
   @autosig
   def has_nodes(self) -> bool:

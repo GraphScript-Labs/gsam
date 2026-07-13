@@ -30,7 +30,7 @@ class RuntimeNode(Node):
     for identifier in identifiers[::-1]:
       nodes = syntax.attached.get(identifier, [])
 
-      for node in nodes:
+      for node in nodes[::-1]:
         runtime_node = RuntimeNode(node, self)
         stream.push(runtime_node)
 
