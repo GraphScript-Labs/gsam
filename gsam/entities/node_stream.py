@@ -12,9 +12,14 @@ class NodeStream:
       self.node: Node = node
       self.next: NodeStream.__StackNode__ | None = None
 
-  def __init__(self, name: str, runtime: RuntimeInterface):
+  def __init__(
+    self,
+    name: str,
+    memory: Memory,
+    runtime: RuntimeInterface,
+  ):
     self.name: str = name
-    self.memory: Memory = Memory()
+    self.memory: Memory = memory
     self._head: NodeStream.__StackNode__ | None = None
     self.runtime: RuntimeInterface = runtime
 

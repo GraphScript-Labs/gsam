@@ -1,5 +1,6 @@
 from threading import Thread
 
+from gsam.entities.memory import Memory
 from gsam.entities.node_stream import NodeStream
 from gsam.entities.nodes.runtime_node import RuntimeNode
 from gsam.entities.nodes.syntax_node import SyntaxNode
@@ -13,6 +14,9 @@ from langex.core.functions import autosig
 class Runtime(RuntimeInterface):
   def __init__(self):
     self.streams: dict[str, NodeStream] = {}
+    self.memories: dict[str, Memory] = {
+      "sacred-stream": Memory(),
+    }
 
   @autosig
   def setup(self, root_node: SyntaxNode) -> str:
@@ -22,7 +26,13 @@ class Runtime(RuntimeInterface):
       stream_name = f"stream-{len(self.streams)}"
 
     runtime_node = RuntimeNode(root_node)
-    self.streams[stream_name] = NodeStream(stream_name, self)
+    stream = NodeStream(
+      stream_name,
+      self.memories["sacred-stream"],
+      self,
+    )
+
+    self.streams[stream_name] = stream
     self.streams[stream_name].push(runtime_node)
 
     return stream_name
